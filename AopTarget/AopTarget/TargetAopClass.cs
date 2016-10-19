@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AopTarget;
 
-namespace AopLogger
+namespace AopTarget
 {
     [Log]
     public class TargetAopClass
@@ -15,7 +16,7 @@ namespace AopLogger
 
         public void First()
         {
- 
+
         }
 
         public int Second(int parameter1, object parameter2)

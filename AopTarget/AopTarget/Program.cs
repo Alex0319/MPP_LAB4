@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AopLogger
+namespace AopTarget
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Logger log=new Logger(3,null);
-            Console.ReadKey();
+            TargetAopClass target = new TargetAopClass(6);
+            target.First();
+            target.Second(1, new object());
         }
     }
 }

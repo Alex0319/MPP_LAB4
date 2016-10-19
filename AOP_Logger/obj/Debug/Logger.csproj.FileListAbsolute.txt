@@ -1,7 +1,0 @@
-E:\lAB\5 семестр\СПП\MPP_LAB4\AOP_Logger\obj\Debug\Logger.csprojResolveAssemblyReference.cache
-E:\lAB\5 семестр\СПП\MPP_LAB4\AOP_Logger\obj\Debug\AOP_Logger.exe
-E:\lAB\5 семестр\СПП\MPP_LAB4\AOP_Logger\obj\Debug\AOP_Logger.pdb
-E:\lAB\5 семестр\СПП\MPP_LAB4\AOP_Logger\bin\Debug\AOP_Logger.exe.config
-E:\lAB\5 семестр\СПП\MPP_LAB4\AOP_Logger\bin\Debug\AOP_Logger.exe
-E:\lAB\5 семестр\СПП\MPP_LAB4\AOP_Logger\bin\Debug\AOP_Logger.pdb
-E:\lAB\5 семестр\СПП\MPP_LAB4\AOP_Logger\bin\Debug\Mono.Cecil.dll
