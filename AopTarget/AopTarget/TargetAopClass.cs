@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using AopTarget;
+using System.Reflection;
+using Logger;
 
 namespace AopTarget
 {
@@ -12,6 +12,16 @@ namespace AopTarget
     {
         public TargetAopClass(int parameter)
         {
+            MethodBase currentMethod = MethodBase.GetCurrentMethod();
+            Type declaringType = currentMethod.DeclaringType;
+            LogAttribute logAttribute = (LogAttribute)Attribute.GetCustomAttribute(declaringType, typeof(LogAttribute));
+            logAttribute.OnCallMethod(currentMethod, new Dictionary<string, object>
+        	{
+		        {
+			        "parameter",
+		    	    parameter
+		        }
+	        });
         }
 
         public void First()

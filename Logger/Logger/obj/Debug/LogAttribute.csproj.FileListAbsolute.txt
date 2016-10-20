@@ -1,0 +1,4 @@
+E:\lAB\5 семестр\СПП\MPP_LAB4\LogAttribute\LogAttribute\bin\Debug\LogAttribute.dll
+E:\lAB\5 семестр\СПП\MPP_LAB4\LogAttribute\LogAttribute\bin\Debug\LogAttribute.pdb
+E:\lAB\5 семестр\СПП\MPP_LAB4\LogAttribute\LogAttribute\obj\Debug\LogAttribute.dll
+E:\lAB\5 семестр\СПП\MPP_LAB4\LogAttribute\LogAttribute\obj\Debug\LogAttribute.pdb

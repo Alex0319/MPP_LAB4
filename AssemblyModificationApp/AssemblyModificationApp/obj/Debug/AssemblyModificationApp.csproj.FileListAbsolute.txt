@@ -1,0 +1,9 @@
+E:\lAB\5 семестр\СПП\MPP_LAB4\AssemblyModificationApp\AssemblyModificationApp\bin\Debug\AssemblyModificationApp.exe.config
+E:\lAB\5 семестр\СПП\MPP_LAB4\AssemblyModificationApp\AssemblyModificationApp\bin\Debug\AssemblyModificationApp.exe
+E:\lAB\5 семестр\СПП\MPP_LAB4\AssemblyModificationApp\AssemblyModificationApp\bin\Debug\AssemblyModificationApp.pdb
+E:\lAB\5 семестр\СПП\MPP_LAB4\AssemblyModificationApp\AssemblyModificationApp\obj\Debug\AssemblyModificationApp.csprojResolveAssemblyReference.cache
+E:\lAB\5 семестр\СПП\MPP_LAB4\AssemblyModificationApp\AssemblyModificationApp\obj\Debug\AssemblyModificationApp.exe
+E:\lAB\5 семестр\СПП\MPP_LAB4\AssemblyModificationApp\AssemblyModificationApp\obj\Debug\AssemblyModificationApp.pdb
+E:\lAB\5 семестр\СПП\MPP_LAB4\AssemblyModificationApp\AssemblyModificationApp\bin\Debug\Mono.Cecil.dll
+E:\lAB\5 семестр\СПП\MPP_LAB4\AssemblyModificationApp\AssemblyModificationApp\bin\Debug\Logger.dll
+E:\lAB\5 семестр\СПП\MPP_LAB4\AssemblyModificationApp\AssemblyModificationApp\bin\Debug\Logger.pdb
