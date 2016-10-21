@@ -8,25 +8,42 @@ namespace Logger
 {
     public class LogAttribute: Attribute
     {
-        public virtual void OnCallMethod(MethodBase method,Dictionary<string,object> parameters)
+        public virtual void OnEnter(MethodBase method,Dictionary<string,object> parameters)
         {
-            using(var fileStream=new FileStream("FileLog.txt",FileMode.Append,FileAccess.Write))
+            WriteToFile(String.Format("CLASS: {{{0}}}. METHOD: {{{1}}}. PARAMETERS: {{{2}}}", method.DeclaringType.Name, method.Name, GetParameterValues(parameters)));
+        }
+
+        public virtual void OnExit(object returnValue)
+        {
+            if(returnValue != null)
+                WriteToFile(String.Format(" and RETURNS {{{0}}}{1}",returnValue,Environment.NewLine));
+            else
+                WriteToFile(Environment.NewLine);            
+        }
+
+        protected void WriteToFile(string logString)
+        {
+            using (var fileStream = new FileStream("FileLog.txt", FileMode.Append, FileAccess.Write))
                 using (var streamWriter = new StreamWriter(fileStream))
                 {
-                    streamWriter.WriteLine("CLASS: {{0}}. METHOD: {{1}}. PARAMETERS: {{2}}{3}",method.DeclaringType.Name,method.Name,GetParameterValues(parameters),GetMethodReturnValue(method));
+                    streamWriter.Write(logString);
                     streamWriter.Close();
                     streamWriter.Dispose();
                     fileStream.Close();
                     fileStream.Dispose();
-                }
+                } 
         }
 
         private string GetParameterValues(Dictionary<string, object> parameters)
         {
+            const int countOfDeletedSymbols = 2;
             StringBuilder stringBuilder=new StringBuilder();
             foreach (string parameter in parameters.Keys)
-                stringBuilder.AppendFormat("{0} = {1},",parameter,parameters[parameter]);
-            stringBuilder.Remove(stringBuilder.Length - 1,1);
+                stringBuilder.AppendFormat("{0} = {1}, ",parameter,parameters[parameter]);
+            if (stringBuilder.Length > 0)
+                stringBuilder.Remove(stringBuilder.Length - countOfDeletedSymbols, countOfDeletedSymbols);
+            else
+                stringBuilder.Append("no params");
             return stringBuilder.ToString();
         }
 
