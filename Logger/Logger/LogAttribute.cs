@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 using System.IO;
+using System.Threading;
 
 namespace Logger
 {
@@ -18,20 +19,17 @@ namespace Logger
             if(returnValue != null)
                 WriteToFile(String.Format(" and RETURNS {{{0}}}{1}",returnValue,Environment.NewLine));
             else
-                WriteToFile(Environment.NewLine);            
+                WriteToFile(String.Format("{0}",Environment.NewLine));            
         }
 
         protected void WriteToFile(string logString)
         {
-            using (var fileStream = new FileStream("FileLog.txt", FileMode.Append, FileAccess.Write))
+            using (var fileStream = new FileStream("FileLog.txt", FileMode.Append))
                 using (var streamWriter = new StreamWriter(fileStream))
                 {
                     streamWriter.Write(logString);
-                    streamWriter.Close();
-                    streamWriter.Dispose();
-                    fileStream.Close();
-                    fileStream.Dispose();
-                } 
+                    streamWriter.Flush();
+                }
         }
 
         private string GetParameterValues(Dictionary<string, object> parameters)
@@ -45,11 +43,6 @@ namespace Logger
             else
                 stringBuilder.Append("no params");
             return stringBuilder.ToString();
-        }
-
-        private string GetMethodReturnValue(MethodBase method)
-        {
-            return null;
         }
     }
 }
