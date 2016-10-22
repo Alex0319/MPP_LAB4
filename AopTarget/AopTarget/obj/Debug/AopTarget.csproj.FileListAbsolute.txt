@@ -3,6 +3,6 @@ E:\lAB\5 семестр\СПП\MPP_LAB4\AopTarget\AopTarget\bin\Debug\AopTarget.
 E:\lAB\5 семестр\СПП\MPP_LAB4\AopTarget\AopTarget\bin\Debug\AopTarget.pdb
 E:\lAB\5 семестр\СПП\MPP_LAB4\AopTarget\AopTarget\bin\Debug\Logger.dll
 E:\lAB\5 семестр\СПП\MPP_LAB4\AopTarget\AopTarget\bin\Debug\Logger.pdb
+E:\lAB\5 семестр\СПП\MPP_LAB4\AopTarget\AopTarget\obj\Debug\AopTarget.csprojResolveAssemblyReference.cache
 E:\lAB\5 семестр\СПП\MPP_LAB4\AopTarget\AopTarget\obj\Debug\AopTarget.exe
 E:\lAB\5 семестр\СПП\MPP_LAB4\AopTarget\AopTarget\obj\Debug\AopTarget.pdb
-E:\lAB\5 семестр\СПП\MPP_LAB4\AopTarget\AopTarget\obj\Debug\AopTarget.csprojResolveAssemblyReference.cache

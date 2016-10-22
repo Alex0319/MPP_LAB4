@@ -12,27 +12,16 @@ namespace AopTarget
     {
         public TargetAopClass(int parameter)
         {
-            MethodBase currentMethod = MethodBase.GetCurrentMethod();
-            Type declaringType = currentMethod.DeclaringType;
-            LogAttribute logAttribute = (LogAttribute)Attribute.GetCustomAttribute(declaringType, typeof(LogAttribute));
-            logAttribute.OnCallMethod(currentMethod, new Dictionary<string, object>
-        	{
-		        {
-			        "parameter",
-		    	    parameter
-		        }
-	        });
         }
 
         public void First()
         {
-
+            Second(6, new object());
         }
 
-        public int Second(int parameter1, object parameter2)
+        public object Second(int parameter1, object parameter2)
         {
-            return 10;
+            return new Random();
         }
-
     }
 }
