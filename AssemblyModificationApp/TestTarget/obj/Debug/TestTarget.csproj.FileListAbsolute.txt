@@ -1,0 +1,7 @@
+E:\lAB\5 семестр\СПП\MPP_LAB4\AssemblyModificationApp\TestTarget\bin\Debug\TestTarget.exe.config
+E:\lAB\5 семестр\СПП\MPP_LAB4\AssemblyModificationApp\TestTarget\bin\Debug\TestTarget.exe
+E:\lAB\5 семестр\СПП\MPP_LAB4\AssemblyModificationApp\TestTarget\bin\Debug\TestTarget.pdb
+E:\lAB\5 семестр\СПП\MPP_LAB4\AssemblyModificationApp\TestTarget\bin\Debug\Logger.dll
+E:\lAB\5 семестр\СПП\MPP_LAB4\AssemblyModificationApp\TestTarget\bin\Debug\Logger.pdb
+E:\lAB\5 семестр\СПП\MPP_LAB4\AssemblyModificationApp\TestTarget\obj\Debug\TestTarget.exe
+E:\lAB\5 семестр\СПП\MPP_LAB4\AssemblyModificationApp\TestTarget\obj\Debug\TestTarget.pdb
