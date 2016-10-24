@@ -1,0 +1,18 @@
+CLASS: {TestTargetClass}. METHOD: {.ctor}. PARAMETERS: {no params}
+CLASS: {TestTargetClass}. METHOD: {.ctor}. PARAMETERS: {field1 = 15, field2 = stringParam}
+CLASS: {TestTargetClass}. METHOD: {SetFields}. PARAMETERS: {field1 = 10, field2 = newStringParam0}
+CLASS: {TestTargetClass}. METHOD: {GetFields}. PARAMETERS: {no params} and RETURNS {newStringParam0}
+CLASS: {TestTargetClass}. METHOD: {SetFields}. PARAMETERS: {field1 = 30, field2 = newStringParam1}
+CLASS: {TestTargetClass}. METHOD: {GetFields}. PARAMETERS: {no params} and RETURNS {newStringParam1}
+CLASS: {TestTargetClass}. METHOD: {.ctor}. PARAMETERS: {no params}
+CLASS: {TestTargetClass}. METHOD: {.ctor}. PARAMETERS: {field1 = 15, field2 = stringParam}
+CLASS: {TestTargetClass}. METHOD: {SetFields}. PARAMETERS: {field1 = 10, field2 = newStringParam0}
+CLASS: {TestTargetClass}. METHOD: {GetFields}. PARAMETERS: {no params} and RETURNS {TestTarget.Fields}
+CLASS: {TestTargetClass}. METHOD: {SetFields}. PARAMETERS: {field1 = 30, field2 = newStringParam1}
+CLASS: {TestTargetClass}. METHOD: {GetFields}. PARAMETERS: {no params} and RETURNS {TestTarget.Fields}
+CLASS: {TestTargetClass}. METHOD: {.ctor}. PARAMETERS: {no params}
+CLASS: {TestTargetClass}. METHOD: {.ctor}. PARAMETERS: {field1 = 15, field2 = stringParam}
+CLASS: {TestTargetClass}. METHOD: {SetFields}. PARAMETERS: {field1 = 10, field2 = newStringParam0}
+CLASS: {TestTargetClass}. METHOD: {GetFields}. PARAMETERS: {no params} and RETURNS {TestTarget.Fields: {field1 = 10, field2 = newStringParam0}}
+CLASS: {TestTargetClass}. METHOD: {SetFields}. PARAMETERS: {field1 = 30, field2 = newStringParam1}
+CLASS: {TestTargetClass}. METHOD: {GetFields}. PARAMETERS: {no params} and RETURNS {TestTarget.Fields: {field1 = 30, field2 = newStringParam1}}
