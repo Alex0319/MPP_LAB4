@@ -6,7 +6,7 @@ using Logger;
 
 namespace TestTarget
 {
-    [Log]
+    [Log("E:\\lAB\\5 семестр\\СПП\\MPP_LAB4\\AssemblyModificationApp\\TestTarget\\bin\\Debug\\FileLog.txt")]
     public class TestTargetClass
     {
         private int classField1;
