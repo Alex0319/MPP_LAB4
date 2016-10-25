@@ -29,10 +29,23 @@ namespace TestTarget
             return new Fields(classField1,classField2);
         }
 
-        public void SetFields(int field1, string field2)
+        public void SetFields(ref int field1, string field2)
         {
             classField1 = field1;
             classField2 = field2;
+        }
+
+        public static char GetFieldSymbol(TestTargetClass target, int index)
+        {
+            try
+            {
+                if (index < target.classField2.Length)
+                    return target.classField2[index];
+                return '\n';
+            }
+            finally
+            {
+            }
         }
     }
 

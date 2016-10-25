@@ -48,21 +48,24 @@ namespace AssemblyModificationApp
                         var parametersVar = new VariableDefinition(dictionaryStringObjectRef);
                         var classVar = new VariableDefinition(typeRef);
 
-                        ilProc.Body.Variables.Add(attributeVar);
-                        ilProc.Body.Variables.Add(currentMethodVar);
-                        ilProc.Body.Variables.Add(parametersVar);
-                        ilProc.Body.Variables.Add(classVar);
+                        if (!CheckMethodModify(ilProc, attributeVar, currentMethodVar, parametersVar, classVar))
+                        {
+                            ilProc.Body.Variables.Add(attributeVar);
+                            ilProc.Body.Variables.Add(currentMethodVar);
+                            ilProc.Body.Variables.Add(parametersVar);
+                            ilProc.Body.Variables.Add(classVar);
 
-                        firstInstruction = ilProc.Body.Instructions[0];
-                        ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Nop));
+                            firstInstruction = ilProc.Body.Instructions[0];
+                            ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Nop));
 
-                        GetCurrentMethod(ilProc,getCurrentMethodRef,currentMethodVar);
-                        GetClassOfCurrentMethod(ilProc,getDeclaringTypeRef,currentMethodVar,classVar);
-                        CreateLogAttributeObject(ilProc,classVar,logAttributeRef,getTypeFromHandleRef,getCustomAttributeRef,attributeVar);
-                        CreateDictionary(ilProc, dictionaryConstructorRef, parametersVar);
-                        AddParametersInDictionary(method, ilProc, parametersVar, dictionaryMethodAddRef);
-                        CallLogAttributeOnEnterMethod(ilProc, attributeVar, currentMethodVar, parametersVar, logAttributeOnEnterRef);
-                        GetReturnValue(method, ilProc, objectRef, logAttributeOnExitRef, attributeVar);
+                            GetCurrentMethod(ilProc, getCurrentMethodRef, currentMethodVar);
+                            GetClassOfCurrentMethod(ilProc, getDeclaringTypeRef, currentMethodVar, classVar);
+                            CreateLogAttributeObject(ilProc, classVar, logAttributeRef, getTypeFromHandleRef, getCustomAttributeRef, attributeVar);
+                            CreateDictionary(ilProc, dictionaryConstructorRef, parametersVar);
+                            AddParametersInDictionary(method, ilProc, parametersVar, dictionaryMethodAddRef);
+                            CallLogAttributeOnEnterMethod(ilProc, attributeVar, currentMethodVar, parametersVar, logAttributeOnEnterRef);
+                            GetReturnValue(method, ilProc, objectRef, logAttributeOnExitRef, attributeVar);
+                        }
                     }
             assembly.Write(path);
         }
@@ -103,10 +106,37 @@ namespace AssemblyModificationApp
                 ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Ldloc, parametersVar));
                 ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Ldstr, argument.Name));
                 ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Ldarg, argument));
-                if (argument.ParameterType.IsPrimitive)
-                    ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Box, argument.ParameterType));
+                CheckArgument(ilProc,argument);
+                if (argument.ParameterType.GetElementType().IsPrimitive)
+                    ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Box, argument.ParameterType.GetElementType()));
                 ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Callvirt, dictionaryMethodAddRef));
             }           
+        }
+
+        private void CheckArgument(ILProcessor ilProc, ParameterDefinition argument)
+        {
+            if (argument.ParameterType.IsByReference)
+                switch(argument.ParameterType.Name.Replace("&",""))
+                {
+                    case "Char": ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Ldind_I1));
+                        break;
+                    case "Int16": ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Ldind_I2));
+                        break;
+                    case "Int32": ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Ldind_I4));
+                        break;
+                    case "Int64": ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Ldind_I8));
+                        break;
+                    case "UInt16": ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Ldind_U2));
+                        break;
+                    case "UInt32": ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Ldind_U4));
+                        break;
+                    case "Single": ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Ldind_R4));
+                        break;
+                    case "Double": ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Ldind_R8));
+                        break;
+                    default: ilProc.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Ldind_Ref));
+                        break;
+                } 
         }
 
         private void CallLogAttributeOnEnterMethod(ILProcessor ilProc, VariableDefinition attributeVar, VariableDefinition currentMethodVar, VariableDefinition parametersVar, MethodReference logAttributeOnEnterRef)
@@ -122,16 +152,29 @@ namespace AssemblyModificationApp
             var returnValueVar = new VariableDefinition(objectRef);
             ilProc.Body.Variables.Add(returnValueVar);
             Instruction lastInstruction = ilProc.Body.Instructions.Last();
+            
             if (!method.ReturnType.Name.Equals(typeof(void).Name))
             {
-                ilProc.InsertBefore(lastInstruction, Instruction.Create(OpCodes.Ldloc, method.Body.Variables[0]));
-                if (method.Body.Variables[0].VariableType.IsPrimitive)
-                    ilProc.InsertBefore(lastInstruction, Instruction.Create(OpCodes.Box, method.Body.Variables[0].VariableType));
+                var returnLocalVar = method.Body.Variables.First(var => var.VariableType.Name.Equals(method.ReturnType.Name));
+                ilProc.InsertBefore(lastInstruction, Instruction.Create(OpCodes.Ldloc, returnLocalVar));
+                if (returnLocalVar.VariableType.IsPrimitive || returnLocalVar.VariableType.IsValueType)
+                    ilProc.InsertBefore(lastInstruction, Instruction.Create(OpCodes.Box, returnLocalVar.VariableType));
                 ilProc.InsertBefore(lastInstruction, Instruction.Create(OpCodes.Stloc, returnValueVar));
             }
             ilProc.InsertBefore(lastInstruction, Instruction.Create(OpCodes.Ldloc, attributeVar));
             ilProc.InsertBefore(lastInstruction, Instruction.Create(OpCodes.Ldloc, returnValueVar));
             ilProc.InsertBefore(lastInstruction, Instruction.Create(OpCodes.Callvirt, logAttributeOnExitRef));
+        }
+
+        private bool CheckMethodModify(ILProcessor ilProc, VariableDefinition attributeVar, VariableDefinition currentMethodVar, VariableDefinition parametersVar, VariableDefinition classVar)
+        {
+            if (ilProc.Body.Variables.Count >= 4)
+                if (ilProc.Body.Variables.Any(var => var.VariableType.Name.Equals(attributeVar.VariableType.Name)) &&
+                    ilProc.Body.Variables.Any(var => var.VariableType.Name.Equals(currentMethodVar.VariableType.Name)) &&
+                    ilProc.Body.Variables.Any(var => var.VariableType.Name.Equals(parametersVar.VariableType.Name)) &&
+                    ilProc.Body.Variables.Any(var => var.VariableType.Name.Equals(classVar.VariableType.Name)))
+                    return true;
+            return false;
         }
     }
 }

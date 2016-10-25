@@ -21,7 +21,7 @@ namespace AopTarget
             target.Second(16, new char());
             target.Second(110909, new TargetAopClass(7));
             target.Second(1, new int());
-
+            TargetAopClass.Third();
         }
     }
 }

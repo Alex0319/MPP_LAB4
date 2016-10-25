@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 using System.IO;
-using System.Threading;
 
 namespace Logger
 {
     public class LogAttribute : Attribute
     {
+        private string logFile;
+
+        public LogAttribute(string logFile)
+        {
+            this.logFile = logFile;
+        }
+
         public virtual void OnEnter(MethodBase method, Dictionary<string, object> parameters)
         {
             WriteToFile(String.Format("CLASS: {{{0}}}. METHOD: {{{1}}}. PARAMETERS: {{{2}}}", method.DeclaringType.Name, method.Name, GetParameterValues(parameters)));
@@ -24,12 +30,12 @@ namespace Logger
 
         protected void WriteToFile(string logString)
         {
-            using (var fileStream = new FileStream("FileLog.txt", FileMode.Append))
-            using (var streamWriter = new StreamWriter(fileStream))
-            {
-                streamWriter.Flush();
-                streamWriter.Write(logString);
-            }
+            using (var fileStream = new FileStream(logFile, FileMode.Append))
+                using (var streamWriter = new StreamWriter(fileStream))
+                {
+                    streamWriter.Write(logString);
+                    streamWriter.Flush();
+                }
         }
 
         private string GetParameterValues(Dictionary<string, object> parameters)
@@ -48,7 +54,7 @@ namespace Logger
         private string GetStringWithReturnValue(object returnValue)
         {
             Type returnValueType = returnValue.GetType();
-            if (returnValueType.IsValueType || returnValueType.IsClass)
+            if ((returnValueType.IsValueType || returnValueType.IsClass) && !returnValueType.Namespace.Contains("System"))
                 return String.Format("{0}: {{{1}}}", returnValueType.ToString(), GetParameterValues(GetDictionaryFromReturnFieldsAndProperties(returnValue, returnValueType)));
             if(returnValueType.IsEnum)
                 return String.Format("{0}: {{{1}}}", returnValueType.ToString(), GetParameterValues(GetDictionaryFromEnum(returnValue, returnValueType)));

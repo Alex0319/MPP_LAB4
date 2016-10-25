@@ -7,7 +7,7 @@ using Logger;
 
 namespace AopTarget
 {
-    [Log]
+    [Log("FileLog.txt")]
     public class TargetAopClass
     {
         public TargetAopClass(int parameter)
@@ -22,6 +22,11 @@ namespace AopTarget
         public object Second(int parameter1, object parameter2)
         {
             return new Random();
+        }
+
+        public static int Third()
+        {
+            return 10;
         }
     }
 }

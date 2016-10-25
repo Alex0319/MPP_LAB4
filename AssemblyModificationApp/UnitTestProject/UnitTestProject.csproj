@@ -53,6 +53,14 @@
     <Compile Include="UnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AssemblyModificationApp\AssemblyModificationApp.csproj">
+      <Project>{d692c8d7-b723-4235-8ae8-66e42f3b6139}</Project>
+      <Name>AssemblyModificationApp</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
